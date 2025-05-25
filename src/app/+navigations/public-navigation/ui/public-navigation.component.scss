@@ -1,0 +1,30 @@
+.banner{
+  background-color: rgb(7, 182, 226);
+  color: white;
+  font-size: large;
+  padding: 2em;
+  text-align: center;
+}
+.menu{
+  background-color: hwb(180 79% 0%);
+  display: flex;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  height: 3em;
+  a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    text-align: center;
+    width: 4em;
+    height: 0em;
+    padding-top: 0.8em;
+    transition: all 0.2s;
+  }
+  a:hover{
+    background-color: rgb(0, 140, 255);
+    height: 2.2em;
+  }
+  .divider{
+    flex: 1 1 0;
+  }
+}
