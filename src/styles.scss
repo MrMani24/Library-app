@@ -3,8 +3,5 @@
   font-family: Persian;
   src: url('/fonts/Yekan-Bakh.woff');
 }
-*{
-  margin: 0;
-  padding: 0;
-  font-family: Persian;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Persian; }

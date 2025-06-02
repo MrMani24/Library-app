@@ -1,16 +1,30 @@
-<div class="baner" >
-  مدیریت کتاب خانه
-</div>
-<div class="sidebar" >
-  <a routerLink="home">دانش جو</a>
-  <a routerLink="members">اعضا</a>
-  <a routerLink="books">کتابها</a>
-  <a href="#">امانات</a>
-  <a (click)="singout()">خروج</a>
-</div>
-<div class="content" >
-  <router-outlet/>
-</div>
-<div class="footer" >
-  حق کپی محفوظ است
-</div>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">داشبورد</a>
+      <a mat-list-item href="#">کتابها</a>
+      <a mat-list-item href="#">اعضا</a>
+      <a mat-list-item href="#">امانات</a>
+      <a mat-list-item  routerLink="/public" >خروج</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span>library-app</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

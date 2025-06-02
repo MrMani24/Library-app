@@ -1,16 +1,44 @@
-<div class="login" >
-  <p>نام کاربری</p>
-  <div>
-    <input placeholder="Username" type="text">
-  </div>
-  <p>رمز عبور</p>
-  <div>
-    <input placeholder="xxxxxxxx" type="text">
-  </div>
-  <div>
-    <button (click)="login()" >ورود</button>
-  </div>
-  <div>
-    <a routerLink="/public"> بازگشت </a>
-  </div>
-</div>
+<mat-card [class.mobile]="(isHandset$ | async)" appearance="outlined">
+  <mat-card-content>
+    <form action="">
+      <div>
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>نام کاربری</mat-label>
+            <input name="n1" [(ngModel)]="login.username" matInput placeholder="Username">
+            <mat-icon matSuffix>person</mat-icon>
+            @if (this.b1 === true) {
+            <mat-hint>نام کاربری صحیح نیست</mat-hint>
+            }
+          </mat-form-field>
+        </p>
+      </div>
+      <div>
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>کلمه عبور</mat-label>
+            <input name="n2" [(ngModel)]="login.password" matInput type="password" placeholder="Passworde">
+            <mat-icon matSuffix>lock</mat-icon>
+            @if (this.b2 === true) {
+            <mat-hint>کلمه عبور اشتباس</mat-hint>
+            }
+          </mat-form-field>
+        </p>
+      </div>
+      <div>
+        <mat-checkbox name="n3" [(ngModel)]="login.keepme" class="example-margin">من را به خاطر بسپار</mat-checkbox>
+      </div>
+      <div>
+        <button [disabled]="login.password.trim()=='' || this.b3 === true " (click)="check()" mat-flat-button>
+          @if (this.b3 === true) {
+            <mat-spinner [diameter]="35"></mat-spinner>
+          }
+          @else {
+            ورود
+          }
+        </button>
+        <!--برای در نظر نگرفتن فاصله های کنار مقدار وارد شده trim() -->
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
