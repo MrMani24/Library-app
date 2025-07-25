@@ -7,9 +7,7 @@
             <mat-label>نام کاربری</mat-label>
             <input name="n1" [(ngModel)]="login.username" matInput placeholder="Username">
             <mat-icon matSuffix>person</mat-icon>
-            @if (this.b1 === true) {
-            <mat-hint>نام کاربری صحیح نیست</mat-hint>
-            }
+            <mat-hint>{{massage}}</mat-hint>
           </mat-form-field>
         </p>
       </div>
@@ -19,9 +17,7 @@
             <mat-label>کلمه عبور</mat-label>
             <input name="n2" [(ngModel)]="login.password" matInput type="password" placeholder="Passworde">
             <mat-icon matSuffix>lock</mat-icon>
-            @if (this.b2 === true) {
-            <mat-hint>کلمه عبور اشتباس</mat-hint>
-            }
+            <mat-hint>{{massage1}}</mat-hint>
           </mat-form-field>
         </p>
       </div>
@@ -29,7 +25,7 @@
         <mat-checkbox name="n3" [(ngModel)]="login.keepme" class="example-margin">من را به خاطر بسپار</mat-checkbox>
       </div>
       <div>
-        <button [disabled]="login.password.trim()=='' || this.b3 === true " (click)="check()" mat-flat-button>
+        <button [disabled]="login.password.trim()=='' || this.b3 === true " (click)="isValid()" mat-flat-button>
           @if (this.b3 === true) {
             <mat-spinner [diameter]="35"></mat-spinner>
           }

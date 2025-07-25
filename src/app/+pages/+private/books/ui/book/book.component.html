@@ -1,0 +1,25 @@
+@if (action=='remove') {
+  <div class="a1" >آیا از حذف این کتاب مطمینان دارید</div>
+}
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>عنوان کتاب</mat-label>
+    <input [disabled]="action=='remove'" name="title" [(ngModel)]="data.title" matInput>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>نویسنده</mat-label>
+    <input [disabled]="action=='remove'" name="writer" [(ngModel)]="data.writer" matInput>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>ناشر</mat-label>
+    <input [disabled]="action=='remove'" name="publisher" [(ngModel)]="data.publisher" matInput>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>قیمت</mat-label>
+    <input [disabled]="action=='remove'" name="price" [(ngModel)]="data.price" matInput>
+  </mat-form-field>
+</form>
+<div>
+  <button (click)="ok()" mat-flat-button>تایید </button>
+  <button (click)="onCancel.emit()" style="font-family: Persian;" mat-stroked-button>انصراف</button>
+</div>

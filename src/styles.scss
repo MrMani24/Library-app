@@ -1,7 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
 @font-face {
   font-family: Persian;
   src: url('/fonts/Yekan-Bakh.woff');
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Persian; }
+
+:root {
+  @include mat.toolbar-overrides((
+    container-background-color: rgb(7, 182, 226),
+    container-text-color: rgb(0, 0, 0),
+    title-text-font:Persian
+  ));
+  @include mat.sidenav-overrides((
+    container-background-color: hwb(180 58% 0%),
+  ));
+    @include mat.list-overrides((
+    list-item-label-text-font:Persian
+  ));
+    @include mat.form-field-overrides((
+    filled-label-text-font:Persian
+  ));
+    @include mat.checkbox-overrides((
+    label-text-font:Persian
+  ));
+    @include mat.button-overrides((
+    filled-label-text-font :Persian
+  ));
+    @include mat.table-overrides((
+    header-headline-font:Persian
+  ));
+}

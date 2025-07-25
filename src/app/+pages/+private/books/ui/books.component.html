@@ -1,1 +1,42 @@
-<p>books works!</p>
+@if (action == 'list') {
+<div class="toolbar">
+  <button (click)="create()" mat-flat-button>افزودن</button>
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>عنوان</th>
+    <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="writer">
+    <th mat-header-cell *matHeaderCellDef>نویسنده</th>
+    <td mat-cell *matCellDef="let element">{{ element.writer }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="publisher">
+    <th mat-header-cell *matHeaderCellDef>ناشر</th>
+    <td mat-cell *matCellDef="let element">{{ element.publisher }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>قیمت</th>
+    <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="edit(element)" mat-mini-fab>
+        <mat-icon>edit</mat-icon></button>&nbsp;
+      <button (click)="remove(element)" mat-mini-fab>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+} @else {
+<app-book [current]="selected" [action]="action" (onOk)="ok($event)" (onCancel)="cancel()"></app-book>
+}

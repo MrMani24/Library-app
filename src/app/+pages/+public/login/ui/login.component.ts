@@ -11,7 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { login } from '../models/login';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthService } from '../../../../+shared/+services/auth.service';
 @Component({
   selector: 'app-login',
   imports: [
@@ -30,29 +31,34 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  auth = inject(AuthService)
   router = inject(Router);
-  b1: boolean = false;
-  b2: boolean = false;
+  login: login = { username: '', password: '', keepme: false };
+  massage: string = ''
+  massage1: string = ''
   b3: boolean = false;
-  login: login = { username: '', password: '', keepme: false }
   check() {
-    if (this.login.username.trim() === 'admin' && this.login.password.trim() === '12345678') {
-      //برای در نظر نگرفتن فاصله های کنار مقدار وارد شده trim()
-      this.b3 = true;
-      setTimeout(()=>{
-        this.go();
-        console.log(this.login);
-      },2500);
-    }
-    if (this.login.username != '12345678') {
-      this.b2 = true;
-    }
-    if (this.login.username != 'admin') {
-      this.b1 = true;
-    }
+    this.b3 = true;
+    setTimeout(() => {
+      if (this.auth.check(this.login.username, this.login.password)) {
+        //برای در نظر نگرفتن فاصله های کنار مقدار وارد شده trim()
+        this.router.navigateByUrl('/admin');
+      }
+    }, 2000);
   }
-  go() {
-    this.router.navigateByUrl('/admin');
+  isValid(){
+    let a = this.auth.mockUsers.findIndex(m => m.username == this.login.username)
+    let b = this.auth.mockUsers.findIndex(m => m.password == this.login.password)
+    console.log(a)
+    if (a == -1) {
+      this.massage = 'نام کاربری درست نمی باشد'
+    }
+    if (b == -1) {
+      this.massage1 = 'کلمه عبور صحیح نمی باشد'
+    }
+    else{
+      this.check()
+    }
   }
   private breakpointObserver = inject(BreakpointObserver);
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
