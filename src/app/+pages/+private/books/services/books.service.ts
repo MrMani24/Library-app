@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Book } from '../model/book.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,25 @@ export class BooksService {
     { id: 4, title: 'معماری کامپیوتر', writer: 'Dخودم', publisher: 'Dخودش', price: 7000 },
     { id: 5, title: 'هوش مصنوعی', writer: 'Eخودم', publisher: 'Eخودش', price: 10000 }
   ];
-  list() {
-    return this.data;
+  http =inject(HttpClient);
+
+  async list() {
+    return await this.http.get('http://localhost:5059/books/list').toPromise();
   }
-  add(book: Book) {
-    book.id = this.lastId++;
-    this.data.push(book);
+  async add(book: Book) {
+    // book.id = this.lastId++;
+    // this.data.push(book);
+    await this.http.post('http://localhost:5059/books/create' , book).toPromise();
   }
-  edit(id: number, book: Book) {
-    let index = this.data.indexOf(this.data.filter(m => m.id = id)[0]);
-    this.data[index] = book
+  async edit(id: number, book: Book) {
+    await this.http.put('http://localhost:5059/books/update/÷'+id , book).toPromise();
+    // let index = this.data.indexOf(this.data.filter(m => m.id = id)[0]);
+    // this.data[index] = book
   }
-  remove(id: number) {
-    let a = this.data.findIndex(m => m.id === id);
-    this.data.splice(a, 1);
+  async remove(id: number) {
+        await this.http.delete('http://localhost:5059/books/remove/'+id).toPromise();
+
+    // let a = this.data.findIndex(m => m.id === id);
+    // this.data.splice(a, 1);
   }
 }

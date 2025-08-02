@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { BooksService } from '../services/books.service';
@@ -13,34 +13,37 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss',
 })
-export class BooksComponent {
+export class BooksComponent implements OnInit {
+  ngOnInit(): void {
+    this.refresh()
+  }
   booksServic = inject(BooksService);
   action = 'list';
   selected: Book | undefined;
   selsctedId: number = 0
-  ok(book: Book) {
+  async ok(book: Book) {
     if (this.action == 'create') {      
-      this.booksServic.add(book);
+      await this.booksServic.add(book);
     }
     else if (this.action == 'edit') {      
-      this.booksServic.edit(this.selsctedId,book);
+      await this.booksServic.edit(this.selsctedId,book);
     }
     else if (this.action == 'remove') {      
       console.log(this.selsctedId)
-      this.booksServic.remove(this.selsctedId);
+      await this.booksServic.remove(this.selsctedId);
     }
     this.action = 'list';
-    this.refresh()
+    await this.refresh()
   }
-  refresh() {
-    this.dataSource = this.booksServic.list();
+  async refresh() {
+    this.dataSource = await this.booksServic.list();
   }
   cancel() {
     this.action = 'list';
   }
   create() {
     this.selected = undefined;
-    this.action = 'cleate';
+    this.action = 'create';
   }
   remove(book: Book) {
     this.action = 'remove';
@@ -60,6 +63,6 @@ export class BooksComponent {
     'price',
     'actions',
   ];
-  dataSource = this.booksServic.list();
-    readonly dialog = inject(MatDialog);
+  dataSource : any;
+  readonly dialog = inject(MatDialog);
 }
